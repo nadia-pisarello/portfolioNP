@@ -11,6 +11,7 @@ import { SkillsComponent } from './components/skills/skills.component';
 import { EducationComponent } from './components/education/education.component';
 import { WorkXpComponent } from './components/work-xp/work-xp.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
+import { ProyectComponent } from './components/proyect/proyect.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AboutMeComponent } from './components/about-me/about-me.component';
     SkillsComponent,
     EducationComponent,
     WorkXpComponent,
-    AboutMeComponent
+    AboutMeComponent,
+    ProyectComponent
   ],
   imports: [
     BrowserModule,
