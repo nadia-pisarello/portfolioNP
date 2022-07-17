@@ -1,5 +1,5 @@
 .row{
-    padding: 20px;
+    padding: 50px;
 }
 
 div{
@@ -10,16 +10,14 @@ div{
 
 img{
     position: relative;
-    width: 300px;
-    border-radius: 50%;
+    width: 200px;
+    margin-top: -150px;
     margin-bottom: 15px;
-    margin-top: -65%;
-    border: 2px solid white;
-    box-shadow: 2px 2px 2px gray;
+    border-radius: 50%;
+    border: 2px solid rgb(209, 209, 209);
 }
 
 #name{
-    margin-top: 10px;
     font-weight: bold;
     font-size: 20px;
 
