@@ -7,22 +7,24 @@
     background-size: cover;
     background-image: url("src/assets/banner00.jpg");
 }
+
 .row{
+    justify-content: space-between;
     display: flex;
-    justify-content:space-between;
     align-items: center;
 }
+
 #logoAp{
-    width: 115px;
+    width: 130px;
     margin-left: 25px;
 }
+
 div{
     background-color: rgb(21, 21, 21);
     width: auto;
 }
 img{
     width: 35px;
-    margin-right: 8px;
-    margin-top: 10px; 
-    float: right;  
+    right: 10px;
+    margin-right: 5px;
 }
