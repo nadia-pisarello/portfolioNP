@@ -1,4 +1,4 @@
-package com.portfolio.backend.controller;
+package com.portfolio.backend.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
