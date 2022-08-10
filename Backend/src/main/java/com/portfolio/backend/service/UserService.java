@@ -6,22 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements ServiceInterface{
     @Autowired
     UserRepository userRepository;
-    
+    @Override
     public User getUser(Long idUser){
-        return userRepository.findById(idUser).orElse(null);
-    }
-    public User createUser(User user){
-        return userRepository.save(user);
-    }
-    public User updateUser(Long idUser){
-        User user = userRepository.getReferenceById(idUser);
+        User user = userRepository.findById(idUser).orElse(null);
         return user;
     }
-    public String deleteUser(Long idUser){
+    @Override
+    public void createUser(User user){
+        userRepository.save(user);
+    }
+    
+    @Override
+    public void deleteUser(Long idUser){
         userRepository.deleteById(idUser);
-        return "Successful operation";
     }
 }

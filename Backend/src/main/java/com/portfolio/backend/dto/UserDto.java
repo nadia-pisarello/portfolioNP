@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class UserDto implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_user;
+    private Long userId;
     
     @NotNull
     @Size(min = 1, max = 50, message = "Error length")
@@ -20,6 +20,6 @@ public class UserDto implements Serializable{
     @Size(min = 1, max = 50, message = "Error length")
     private String lastName;
     
-    private String img;
+    private String image;
 
 }

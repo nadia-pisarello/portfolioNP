@@ -12,7 +12,7 @@ import lombok.Setter;
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
+    private Long userId;
     
     @NotNull
     @Size(min = 1, max = 50, message = "Error length")
@@ -22,7 +22,7 @@ public class User{
     @Size(min = 1, max = 50, message = "Error length")
     private String lastName;
     
-    private String img;
+    private String image;
 
 }
 
