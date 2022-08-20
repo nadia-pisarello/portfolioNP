@@ -30,10 +30,11 @@ public class TokenFilter extends OncePerRequestFilter {
             if (token != null && provider.validateToken(token)) {
                 String userName = provider.getUserNameFromToken(token);
                 UserDetails userDetails = userDetailsImp.loadUserByUsername(userName);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,
+                        null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (Exception error) {
+        } catch (Exception e) {
             logger.error("Failed doFilterInternal");
         }
         filterChain.doFilter(request, response);
@@ -42,8 +43,8 @@ public class TokenFilter extends OncePerRequestFilter {
     
     private String getToken(HttpServletRequest request){
         String header = request.getHeader("Authorization");
-        if(header != null && header.startsWith("Bearerf"))
-            return header.replace("Bearer", "");
+        if(header != null && header.startsWith("Bearer"))
+            return header.replace("Bearer", " ");
         return null;
     }
 }
