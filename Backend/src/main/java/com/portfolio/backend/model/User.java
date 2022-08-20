@@ -1,14 +1,14 @@
 package com.portfolio.backend.model;
 
-import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
 @Entity
-//@Table(name = "user")
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
