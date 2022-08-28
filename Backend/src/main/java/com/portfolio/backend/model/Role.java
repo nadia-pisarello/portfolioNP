@@ -1,5 +1,6 @@
 package com.portfolio.backend.model;
 
+import com.portfolio.backend.security.roles.Roles;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -10,13 +11,13 @@ public class Role {
     private int roleId;
     @NotNull
     @Enumerated(EnumType.STRING)
-    private com.portfolio.backend.security.roles.Roles roles;
+    private Roles roles;
 
     //Constructor
     public Role() {
     }
 
-    public Role(com.portfolio.backend.security.roles.Roles roles) {
+    public Role(Roles roles) {
         this.roles = roles;
     }
 
@@ -28,11 +29,11 @@ public class Role {
         this.roleId = roleId;
     }
 
-    public com.portfolio.backend.security.roles.Roles getRoles() {
+    public Roles getRoles() {
         return roles;
     }
 
-    public void setRoles(com.portfolio.backend.security.roles.Roles roles) {
+    public void setRoles(Roles roles) {
         this.roles = roles;
     }
     

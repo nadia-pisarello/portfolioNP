@@ -12,11 +12,11 @@ import com.portfolio.backend.security.roles.Roles;
 @Transactional
 public class RoleService {
     @Autowired
-    RoleRepoInterf roleRepository;
+    RoleRepoInterf roleRepoInterf;
     public Optional<Role> getByRoles(Roles roleName){
-        return roleRepository.findByRole(roleName);
+        return roleRepoInterf.findByRoles(roleName);
     }
     public void save(Role role){
-        roleRepository.save(role);
+        roleRepoInterf.save(role);
     }
 }
