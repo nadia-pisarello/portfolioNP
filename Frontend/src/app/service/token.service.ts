@@ -8,7 +8,7 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
     providedIn: 'root'
 })
 
-export class Token {
+export class TokenService {
     roles: Array<string> = [];
     constructor(){};
     public setToken(token: string): void{
