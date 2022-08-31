@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NewExperienceComponent } from './components/work-xp/new-experience.component';
+import { EditXpComponent } from './components/work-xp/edit-xp.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NewExperienceComponent } from './components/work-xp/new-experience.comp
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    NewExperienceComponent
+    NewExperienceComponent,
+    EditXpComponent
   ],
   imports: [
     BrowserModule,

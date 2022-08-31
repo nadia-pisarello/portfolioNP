@@ -28,6 +28,14 @@ export class WorkXpComponent implements OnInit {
     this.xpService.listar().subscribe(data => {this.experience = data});      
     
   }
+  delete(id?: number){
+    if(id != undefined){
+      this.xpService.delete(id).subscribe(
+        data => this.loadExperience(),
+        err => alert("the operation could not be completed")   
+      )
+    }
+  }
   
 }
 

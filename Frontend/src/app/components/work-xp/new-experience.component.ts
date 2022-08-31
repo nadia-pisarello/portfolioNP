@@ -17,13 +17,14 @@ export class NewExperienceComponent implements OnInit {
   }
   onCreate(): void{
     const xp = new Experience(this.xp_name, this.xp_descrip);
-    this.xpService.save(xp).subscribe(data=> {
+    this.xpService.save(xp).subscribe
+    (data=> {
       alert("Successful operation");
       this.router.navigate(['']);
 
     }, err =>{
-      alert('Failed');
-      this.router.navigate(['']);
+         alert('Failed');
+         this.router.navigate(['']);
     })
   }
 
