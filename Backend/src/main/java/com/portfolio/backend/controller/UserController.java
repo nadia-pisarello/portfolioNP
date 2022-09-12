@@ -3,6 +3,7 @@ package com.portfolio.backend.controller;
 import com.portfolio.backend.model.User;
 import com.portfolio.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,14 +15,14 @@ public class UserController {
     public User getUser(Long userId){
         return userService.getUser(userId);
     }
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/users/create")
     public String createUser(@RequestBody User user){
         userService.createUser(user);
         return "Account created";
     }
     
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/users/edit/{userId}")
     public User editUser(@PathVariable Long userId,
                                @RequestParam("Name") String newName,

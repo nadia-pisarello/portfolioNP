@@ -43,8 +43,8 @@ public class XpController {
             return new ResponseEntity(new GralMessage("This field is required"), HttpStatus.BAD_REQUEST);
         }
         //expendable
-        /*if(xpService.existsByNameXp(workDto.getXpName()))
-            return new ResponseEntity(new GralMessage("Already exists"),HttpStatus.BAD_REQUEST);*/
+        if(xpService.existsByNameXp(workDto.getXpName()))
+            return new ResponseEntity(new GralMessage("Already exists"),HttpStatus.BAD_REQUEST);
         WorkXp workXp = new WorkXp(workDto.getXpName(), workDto.getDescripXp());
         xpService.saveXp(workXp);
         return new ResponseEntity(new GralMessage("Successful operation"), HttpStatus.OK);
@@ -60,11 +60,11 @@ public class XpController {
     @PutMapping("/xp/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody WorkDto workDto) {
         if(!xpService.existsById(id))
-            return new ResponseEntity(new GralMessage("Don't exists"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new GralMessage("Doesn't exists"), HttpStatus.NOT_FOUND);
         //expendable
-        /*if(xpService.existsByNameXp(workDto.getXpName()) && xpService.getByNameXp(workDto.getXpName()).get().getXpId() != id)
+        if(xpService.existsByNameXp(workDto.getXpName()) && xpService.getByNameXp(workDto.getXpName()).get().getXpId() != id)
             return new ResponseEntity(new GralMessage("Already exists"), HttpStatus.BAD_REQUEST);
-        */
+        
         if(StringUtils.isBlank(workDto.getXpName()))
             return new ResponseEntity(new GralMessage("This field is required"),HttpStatus.BAD_REQUEST);
         WorkXp workXp = xpService.getOne(id).get();
@@ -83,4 +83,5 @@ public class XpController {
         xpService.deleteXp(id);
         return new ResponseEntity(new GralMessage("Successful operation"), HttpStatus.OK);
     }
+    
 }
