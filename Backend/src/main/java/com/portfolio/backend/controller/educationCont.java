@@ -46,7 +46,7 @@ public class educationCont {
             return new ResponseEntity(new GralMessage("It does not exists"), HttpStatus.NOT_FOUND);
         }
         educationServ.delete(id);
-        return new ResponseEntity(new GralMessage("education eliminated"), HttpStatus.OK);
+        return new ResponseEntity(new GralMessage("Education eliminated"), HttpStatus.OK);
     }
 
     @PostMapping("/create")
