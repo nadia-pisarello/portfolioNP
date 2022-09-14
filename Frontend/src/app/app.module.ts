@@ -15,6 +15,8 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NewExperienceComponent } from './components/work-xp/new-experience.component';
 import { EditXpComponent } from './components/work-xp/edit-xp.component';
+import { NewEducationComponent } from './components/education/neweducation.component';
+import { EditEducationComponent } from './components/education/edit-education.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { EditXpComponent } from './components/work-xp/edit-xp.component';
     HomeComponent,
     LoginComponent,
     NewExperienceComponent,
-    EditXpComponent
+    EditXpComponent,
+    NewEducationComponent,
+    EditEducationComponent
   ],
   imports: [
     BrowserModule,
