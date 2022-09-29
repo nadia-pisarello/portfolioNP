@@ -2,6 +2,7 @@ package com.portfolio.backend.service;
 
 import com.portfolio.backend.model.User;
 import com.portfolio.backend.repository.UserRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,11 @@ public class UserService implements ServiceInterface{
     @Override
     public void deleteUser(Long idUser){
         userRepository.deleteById(idUser);
+    }
+    
+    @Override
+    public List<User> getAllUsers() {
+        List<User> user = userRepository.findAll();
+        return user;
     }
 }

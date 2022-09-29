@@ -22,6 +22,7 @@ public class User{
     @Size(min = 1, max = 50, message = "Error length")
     private String lastName;
     
+    @Size(min = 1, max = 50, message = "Error length")
     private String image;
 
 }
