@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import com.portfolio.backend.security.repository.RoleRepoInterf;
-import com.portfolio.backend.security.roles.Roles;
+import com.portfolio.backend.security.Enums.Roles;
 
 @Service
 @Transactional

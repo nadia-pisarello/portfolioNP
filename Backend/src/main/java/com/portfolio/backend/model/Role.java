@@ -1,11 +1,12 @@
 package com.portfolio.backend.model;
 
-import com.portfolio.backend.security.roles.Roles;
+import com.portfolio.backend.security.Enums.Roles;
+import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Role {
+public class Role implements Serializable {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
@@ -20,7 +21,7 @@ public class Role {
     public Role(Roles roles) {
         this.roles = roles;
     }
-
+    //Getters & Setters
     public int getRoleId() {
         return roleId;
     }

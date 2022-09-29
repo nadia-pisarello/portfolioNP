@@ -1,10 +1,10 @@
 export class user{
     userId?: number;
-    name: String;
-    lastname: String;
-    image: String;
+    name: string;
+    lastname: string;
+    image: string;
 
-    constructor(name: String, lastname: String, image: String){
+    constructor(name: string, lastname: string, image: string){
         this.name = name;
         this.lastname = lastname;
         this.image = image;

@@ -15,7 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { NewExperienceComponent } from './components/work-xp/new-experience.component';
 import { EditXpComponent } from './components/work-xp/edit-xp.component';
-import { NewEducationComponent } from './components/education/neweducation.component';
+import { NewEducationComponent } from './components/education/newEducation.component';
 import { EditEducationComponent } from './components/education/edit-education.component';
 
 @NgModule({

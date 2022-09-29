@@ -6,7 +6,7 @@ import com.portfolio.backend.dto.NewUser;
 import com.portfolio.backend.model.GralUser;
 import com.portfolio.backend.model.Role;
 import com.portfolio.backend.security.jwt.Provider;
-import com.portfolio.backend.security.roles.Roles;
+import com.portfolio.backend.security.Enums.Roles;
 import com.portfolio.backend.security.service.GralUserService;
 import com.portfolio.backend.security.service.RoleService;
 import java.util.HashSet;
@@ -55,7 +55,7 @@ public class AuthController {
         if (gralUserS.existsByEmail(newUser.getEmail())) {
             return new ResponseEntity(new GralMessage("Email already exists"), HttpStatus.BAD_REQUEST);
         }
-        GralUser gralUser = new GralUser(newUser.getName(), newUser.getName(), newUser.getEmail(), passwordEnconder.encode(newUser.getPassword()));
+        GralUser gralUser = new GralUser(newUser.getName(), newUser.getUserName(), newUser.getEmail(), passwordEnconder.encode(newUser.getPassword()));
         Set<Role> role = new HashSet<>();
         role.add(roleServ.getByRoles(Roles.ROLE_USER).get());
         if (newUser.getRoles().contains("admin")) {
