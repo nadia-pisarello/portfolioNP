@@ -14,7 +14,7 @@ public class UserController {
     UserService userService;
     @GetMapping("users/get/profile")
     public User getUser(){
-        return userService.getUser(Long.MIN_VALUE);
+        return userService.getUser((long)1);
     }
     //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/users/create")

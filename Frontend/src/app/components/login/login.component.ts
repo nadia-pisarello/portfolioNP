@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginUser } from 'src/app/model/login-user';
 import { AuthService } from 'src/app/service/auth.service';
-import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-login',
@@ -10,42 +9,55 @@ import { TokenService } from 'src/app/service/token.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  isLogged = false;
-  isLoginFail = false;
-  loginUser: LoginUser;
-  userName: string;
-  password: string;
-  rols: string[] = [];
-  errorMessage: string;
+  form: FormGroup = new FormGroup({});
   
+  constructor(private asAuthService: AuthService){
 
-  constructor(private tokenService: TokenService, private authService: AuthService, private router: Router) { }
-
+  }
+  // constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router){
+  //   this.form = this.formBuilder.group({
+  //     userName: ['', [Validators.required, Validators.minLength(6)]],
+  //     password: ['', [Validators.required, Validators.minLength(8)]]
+  
+  //   })
+  // }
   ngOnInit(): void {
-    if (this.tokenService.getToken()){
-      this.isLogged = true;
-      this.isLoginFail = false;
-      this.rols = this.tokenService.getAuthorities();
-    }
+    this.form = new FormGroup(
+      {
+      userName: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(12)])
+      }
+    )
+    
   }
 
-  onLogin(): void{
-    this.loginUser= new LoginUser(this.userName, this.password);
-    this.authService.login(this.loginUser).subscribe(
-      data => { this.isLogged = true;
-        this.isLoginFail=false;
-        this.tokenService.setToken(data.token);
-        this.tokenService.setUsername(data.userName)
-        this.tokenService.setAuthorities(data.authorities);
-        this.rols = data.authorities;
-        this.router.navigate([''])
-      }, err =>{
-        this.isLogged = false;
-        this.isLoginFail = true;
-        this.errorMessage= err.errorMessage;
-        console.log(this.errorMessage);
-      })
+  get userName(){
+    return this.form.get('userName');
+  }
+
+  get password(){
+    return this.form.get('password');
+  }
+
+  // onLogin(event: Event): void{
+  //   event.preventDefault;
+  //   this.authService.login(this.form.value).subscribe(
+  //     data => { 
+  //       console.log(data.token);
+  //       sessionStorage.setItem('token', data.token);
+  //       this.authService.setToken(data.token);
+  //       this.router.navigate(['home']);
+  //     }, err =>{
+        
+  //       console.log('Error al iniciar');
+  //     })
     
+  // }
+
+  sendLogin(): void {
+    const {userName, password} = this.form.value;
+    this.asAuthService.sendCredentials(userName, password)
+    console.log('Me vuelvo chango')
   }
 
 }

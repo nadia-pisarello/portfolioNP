@@ -19,12 +19,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logOut():void{
+  onLogOut():void{
     this.tokenService.logOut();
     window.location.reload();
   }
 
-  login(){
+  login(): void{
     this.router.navigate(['/login'])
   }
 
