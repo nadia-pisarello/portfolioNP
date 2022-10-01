@@ -1,6 +1,6 @@
 package com.portfolio.backend.security.jwt;
 
-import com.portfolio.backend.security.service.UserDetailsImp;
+import com.portfolio.backend.service.UserDetailServiceImpl;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class TokenFilter extends OncePerRequestFilter {
     @Autowired
     Provider provider;
     @Autowired
-    UserDetailsImp userDetailsImp;
+    UserDetailServiceImpl userDetailsImp;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

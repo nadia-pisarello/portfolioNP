@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.portfolio.backend.controller;
 
+import com.portfolio.backend.dto.MessageCustom;
 import com.portfolio.backend.dto.WorkDto;
 import com.portfolio.backend.model.WorkXp;
-import com.portfolio.backend.security.controller.GralMessage;
 import com.portfolio.backend.service.XpService;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -40,19 +37,19 @@ public class XpController {
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody WorkDto workDto) {
         if (StringUtils.isBlank(workDto.getXpName())) {
-            return new ResponseEntity(new GralMessage("This field is required"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
         }
         //expendable
         if(xpService.existsByNameXp(workDto.getXpName()))
-            return new ResponseEntity(new GralMessage("Already exists"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new MessageCustom("Already exists"),HttpStatus.BAD_REQUEST);
         WorkXp workXp = new WorkXp(workDto.getXpName(), workDto.getDescripXp());
         xpService.saveXp(workXp);
-        return new ResponseEntity(new GralMessage("Successful operation"), HttpStatus.OK);
+        return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
     }
      @GetMapping("/detail/{id}")
     public ResponseEntity<WorkXp> getById(@PathVariable("id") int id){
         if(!xpService.existsById(id))
-            return new ResponseEntity(new GralMessage("Doesn't exists"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
         WorkXp workXp = xpService.getOne(id).get();
         return new ResponseEntity(workXp, HttpStatus.OK);
     }
@@ -60,28 +57,28 @@ public class XpController {
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody WorkDto workDto) {
         if(!xpService.existsById(id))
-            return new ResponseEntity(new GralMessage("Doesn't exists"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
         //expendable
         if(xpService.existsByNameXp(workDto.getXpName()) && xpService.getByNameXp(workDto.getXpName()).get().getXpId() != id)
-            return new ResponseEntity(new GralMessage("Already exists"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new MessageCustom("Already exists"), HttpStatus.BAD_REQUEST);
         
         if(StringUtils.isBlank(workDto.getXpName()))
-            return new ResponseEntity(new GralMessage("This field is required"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new MessageCustom("This field is required"),HttpStatus.BAD_REQUEST);
         WorkXp workXp = xpService.getOne(id).get();
         workXp.setDescripXp(workDto.getDescripXp());
         xpService.saveXp(workXp);
                 
-        return new ResponseEntity(new GralMessage("Successful operation"), HttpStatus.OK);
+        return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
         
     }
     
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
         if (!xpService.existsById(id)) {
-            return new ResponseEntity(new GralMessage("Doesn't exists"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
         }
         xpService.deleteXp(id);
-        return new ResponseEntity(new GralMessage("Successful operation"), HttpStatus.OK);
+        return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
     }
     
 }

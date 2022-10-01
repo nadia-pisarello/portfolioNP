@@ -1,25 +1,25 @@
 package com.portfolio.backend.model;
 
-import com.portfolio.backend.security.Enums.Roles;
+import com.portfolio.backend.security.Enums.RolName;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Role implements Serializable {
+public class Rol implements Serializable {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Roles roles;
+    private RolName rolName;
 
     //Constructor
-    public Role() {
+    public Rol() {
     }
 
-    public Role(Roles roles) {
-        this.roles = roles;
+    public Rol(RolName rolName) {
+        this.rolName = rolName;
     }
     //Getters & Setters
     public int getRoleId() {
@@ -30,12 +30,20 @@ public class Role implements Serializable {
         this.roleId = roleId;
     }
 
-    public Roles getRoles() {
-        return roles;
+    public RolName getRolName() {
+        return rolName;
     }
 
-    public void setRoles(Roles roles) {
-        this.roles = roles;
+    public void setRolName(RolName rolName) {
+        this.rolName = rolName;
+    }
+
+    public RolName getRoles() {
+        return rolName;
+    }
+
+    public void setRoles(RolName roles) {
+        this.rolName = roles;
     }
     
     

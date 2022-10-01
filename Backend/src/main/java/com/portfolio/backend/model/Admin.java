@@ -9,24 +9,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class Admin implements UserDetails{
     private String name;
-    private String adminName;
+    private String userName;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public Admin(String name, String adminName, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public Admin(String name, String userName, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
-        this.adminName = adminName;
+        this.userName = userName;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
-    public static Admin build(GralUser gralUser){
-        List<GrantedAuthority> authorities = gralUser.getRoles().stream()
+    public static Admin build(User user){
+        List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRoles().name()))
                 .collect(Collectors.toList());
-        return new Admin(gralUser.getRealName(),gralUser.getUserName(),
-                gralUser.getEmail(),gralUser.getPassword(),authorities);
+        return new Admin(user.getName(),user.getUserName(),
+                user.getEmail(),user.getPassword(),authorities);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Admin implements UserDetails{
     }
     @Override
     public String getUsername() {
-        return adminName;
+        return userName;
     }
 
     public String getEmail() {

@@ -9,8 +9,8 @@ import { NewExperienceComponent } from './components/work-xp/new-experience.comp
 
 const routes: Routes = [
 
-  {path: '', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: '', component: HomeComponent},
   {path: 'newXp', component: NewExperienceComponent},
   {path: 'editXp/:id', component: EditXpComponent},
   {path: 'newEducation', component: NewEducationComponent},

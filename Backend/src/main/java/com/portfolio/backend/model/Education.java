@@ -9,35 +9,45 @@ import javax.persistence.Id;
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String nameE;
+    private Long id;
+    private String title;
+    private String institution;
     private String descriptionE;
 
     //Constructor
     public Education() {
     }
 
-    public Education(String nameE, String descriptionE) {
-        this.nameE = nameE;
+    public Education(String title, String institution,String descriptionE) {
+        this.title = title;
+        this.institution = institution;
         this.descriptionE = descriptionE;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
     
     //getters & setters
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNameE() {
-        return nameE;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNameE(String nameE) {
-        this.nameE = nameE;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescriptionE() {

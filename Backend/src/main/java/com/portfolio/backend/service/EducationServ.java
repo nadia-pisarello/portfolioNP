@@ -3,7 +3,6 @@ package com.portfolio.backend.service;
 import com.portfolio.backend.model.Education;
 import com.portfolio.backend.repository.EducationRepo;
 import java.util.List;
-import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,31 +13,40 @@ public class EducationServ {
     @Autowired
     EducationRepo educationR;
     
-    public List<Education> list(){
+    public List<Education> listEducation(){
         return educationR.findAll();
-    }
-    
-    public Optional<Education> getOne(int id){
-        return educationR.findById(id);
-    }
-    
-    public Optional<Education> getByNameE(String nameE){
-        return educationR.findByNameE(nameE);
     }
     
     public void save(Education education){
         educationR.save(education);
     }
-    
-    public void delete(int id){
+        
+    public void delete(Long id){
         educationR.deleteById(id);
+    } 
+    
+    public Education getEducationById(Long id){
+        return educationR.findById(id).orElse(null);
     }
     
-    public boolean existsById(int id){
+    public boolean existsById(Long id){
         return educationR.existsById(id);
     }
     
-    public boolean existsByNameE(String nameE){
-        return educationR.existsByNameE(nameE);
+    public boolean existsEducation(Long id){
+        try{
+            educationR.findById(id);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
+    public void editEducation (Long id, Education education){
+         educationR.findById(id).map( editEducation -> {
+         editEducation.setTitle(education.getTitle());
+         editEducation.setInstitution(education.getInstitution());
+         return educationR.save(editEducation);
+      });
     }
 }
