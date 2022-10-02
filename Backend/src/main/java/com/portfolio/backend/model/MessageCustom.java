@@ -1,5 +1,5 @@
 
-package com.portfolio.backend.dto;
+package com.portfolio.backend.model;
 
 public class MessageCustom implements java.io.Serializable{
      private String message;

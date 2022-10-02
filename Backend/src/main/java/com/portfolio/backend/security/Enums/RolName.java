@@ -3,7 +3,7 @@ package com.portfolio.backend.security.Enums;
 public enum RolName {
     ROLE_ADMIN("admin"), ROLE_USER("user");
     
-    private String rol;
+    private final String rol;
 
     public String getRol() {
         return rol;

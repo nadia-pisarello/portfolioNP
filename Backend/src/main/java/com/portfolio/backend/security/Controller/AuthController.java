@@ -1,9 +1,9 @@
 package com.portfolio.backend.security.Controller;
 
 import com.portfolio.backend.dto.JwtDto;
-import com.portfolio.backend.dto.LoginUser;
-import com.portfolio.backend.dto.MessageCustom;
-import com.portfolio.backend.dto.NewUser;
+import com.portfolio.backend.model.LoginUser;
+import com.portfolio.backend.model.MessageCustom;
+import com.portfolio.backend.model.NewUser;
 import com.portfolio.backend.model.Rol;
 import com.portfolio.backend.model.User;
 import com.portfolio.backend.security.Enums.RolName;
@@ -34,7 +34,7 @@ public class AuthController {
     
     @Autowired AuthenticationManager authenticationManager;
 
-    @Autowired UserService UserService;
+    @Autowired UserService userService;
 
     @Autowired
     RolService rolService;
@@ -46,17 +46,22 @@ public class AuthController {
     public ResponseEntity<?> newUSer(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new MessageCustom("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-        if(UserService.existsByUserName(newUser.getUserName()))
+        
+        if(userService.existsByUserName(newUser.getUserName()))
             return new ResponseEntity(new MessageCustom("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
-        if(UserService.existsByEmail(newUser.getEmail()))
+        
+        if(userService.existsByEmail(newUser.getEmail()))
             return new ResponseEntity(new MessageCustom("ese email ya existe"), HttpStatus.BAD_REQUEST);
+        
         User user = new User(newUser.getName(), newUser.getUserName(), newUser.getEmail(),passwordEncoder.encode(newUser.getPassword()));
+        
         Set<Rol> roles = new HashSet<>();
         roles.add(rolService.getByRolName(RolName.ROLE_USER).get());
-        if(newUser.getRoles().contains("ADMIN"))
-            roles.add(rolService.getByRolName(RolName.ROLE_ADMIN).get());
+        
+        /*if(newUser.getRoles().contains("admin"))
+            roles.add(rolService.getByRolName(RolName.ROLE_ADMIN).get());*/
         user.setRoles(roles);
-        UserService.save(user);
+        userService.save(user);
         return new ResponseEntity(new MessageCustom("User guardado"), HttpStatus.CREATED);
     }
 

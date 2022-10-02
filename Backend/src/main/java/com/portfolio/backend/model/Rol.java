@@ -9,11 +9,10 @@ import javax.validation.constraints.NotNull;
 public class Rol implements Serializable {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roleId;
+    private Long roleId;
     @NotNull
     @Enumerated(EnumType.STRING)
     private RolName rolName;
-
     //Constructor
     public Rol() {
     }
@@ -22,11 +21,11 @@ public class Rol implements Serializable {
         this.rolName = rolName;
     }
     //Getters & Setters
-    public int getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
@@ -42,8 +41,8 @@ public class Rol implements Serializable {
         return rolName;
     }
 
-    public void setRoles(RolName roles) {
-        this.rolName = roles;
+    public void setRoles(RolName rolName) {
+        this.rolName = rolName;
     }
     
     

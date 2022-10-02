@@ -1,6 +1,6 @@
 package com.portfolio.backend.controller;
 
-import com.portfolio.backend.dto.MessageCustom;
+import com.portfolio.backend.model.MessageCustom;
 import com.portfolio.backend.dto.SkillDto;
 import com.portfolio.backend.model.Skills;
 import com.portfolio.backend.service.SkillsServ;

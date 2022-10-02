@@ -1,18 +1,17 @@
-package com.portfolio.backend.dto;
+package com.portfolio.backend.model;
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 public class NewUser {
-    @NotBlank
+    
     private String name;
-    @NotBlank
+   
     private String userName;
     @Email
     private String email;
-    @NotBlank
+  
     private String password;
     private Set <String> roles = new HashSet <> ();
     
@@ -56,18 +55,6 @@ public class NewUser {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
-    }
-
-    public NewUser() {
-    }
-
-    public NewUser(String name, String userName, String email, String password) {
-        this.name = name;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-    }
-    
-    
+    } 
     
 }

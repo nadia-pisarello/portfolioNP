@@ -1,4 +1,4 @@
-package com.portfolio.backend.dto;
+package com.portfolio.backend.model;
 
 import javax.validation.constraints.NotBlank;
 

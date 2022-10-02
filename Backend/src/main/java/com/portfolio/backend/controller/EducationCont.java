@@ -1,7 +1,7 @@
 package com.portfolio.backend.controller;
 
 import com.portfolio.backend.dto.EducationDto;
-import com.portfolio.backend.dto.MessageCustom;
+import com.portfolio.backend.model.MessageCustom;
 import com.portfolio.backend.model.Education;
 import com.portfolio.backend.service.EducationServ;
 
