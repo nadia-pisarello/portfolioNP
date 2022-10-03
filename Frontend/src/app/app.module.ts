@@ -17,6 +17,7 @@ import { NewExperienceComponent } from './components/work-xp/new-experience.comp
 import { EditXpComponent } from './components/work-xp/edit-xp.component';
 import { NewEducationComponent } from './components/education/newEducation.component';
 import { EditEducationComponent } from './components/education/edit-education.component';
+import { interceptorProvider } from './service/interceptor-provider.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { EditEducationComponent } from './components/education/edit-education.co
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

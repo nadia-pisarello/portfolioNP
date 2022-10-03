@@ -58,8 +58,8 @@ public class AuthController {
         Set<Rol> roles = new HashSet<>();
         roles.add(rolService.getByRolName(RolName.ROLE_USER).get());
         
-        /*if(newUser.getRoles().contains("admin"))
-            roles.add(rolService.getByRolName(RolName.ROLE_ADMIN).get());*/
+        if(newUser.getRoles().contains("admin"))
+            roles.add(rolService.getByRolName(RolName.ROLE_ADMIN).get());
         user.setRoles(roles);
         userService.save(user);
         return new ResponseEntity(new MessageCustom("User guardado"), HttpStatus.CREATED);

@@ -18,11 +18,11 @@ export class AuthService {
   }
 
   public new(newUser: NewUser): Observable<any>{
-    return this.httpClient.post<any>(this.URL + 'new', newUser);
+    return this.httpClient.post<any>(this.URL + '/auth/newUser', newUser);
   }
 
   public login(loginUser: LoginUser): Observable<JwtDto>{
-    return this.httpClient.post<JwtDto>(this.URL + 'login', loginUser)
+    return this.httpClient.post<JwtDto>(this.URL + '/auth/login', loginUser)
   }
 
   sendCredentials(userName: string, password: string): void{
