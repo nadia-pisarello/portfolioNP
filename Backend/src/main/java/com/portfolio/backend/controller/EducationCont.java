@@ -20,7 +20,7 @@ public class EducationCont {
     @Autowired
     EducationServ educationServ;
     
-    @GetMapping("/education")
+    @GetMapping("/education/list")
     public ResponseEntity<List<Education>> listEducation(){
         List<Education> list = educationServ.listEducation();
         return new ResponseEntity(list, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class EducationCont {
         return new ResponseEntity(new MessageCustom("Education eliminated"), HttpStatus.OK);
     }
 
-    @PostMapping("/education/create")
+    @PostMapping("/education")
     public ResponseEntity<?> create(@RequestBody EducationDto educationDto) {
         if (StringUtils.isBlank(educationDto.getTitle())) {
             return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);

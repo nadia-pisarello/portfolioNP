@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class WorkXp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int xpId;
+    private Long xpId;
     private String xpName;
     private String descripXp;
     
@@ -25,11 +25,11 @@ public class WorkXp {
     
     //getters & setters
 
-    public int getXpId() {
+    public Long getXpId() {
         return xpId;
     }
 
-    public void setXpId(int xpId) {
+    public void setXpId(Long xpId) {
         this.xpId = xpId;
     }
 

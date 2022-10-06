@@ -11,11 +11,8 @@ import { NewUser } from '../model/new-user';
   providedIn: 'root'
 })
 export class AuthService {
-  URL = environment.URL;
-  userName: BehaviorSubject<any>;
-  constructor(private httpClient: HttpClient) { 
-    this.userName = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('token')|| '{}'));
-  }
+  URL = 'http://localhost:8080/api/v1';
+  constructor(private httpClient: HttpClient) {}
 
   public new(newUser: NewUser): Observable<any>{
     return this.httpClient.post<any>(this.URL + '/auth/newUser', newUser);
@@ -25,24 +22,4 @@ export class AuthService {
     return this.httpClient.post<JwtDto>(this.URL + '/auth/login', loginUser)
   }
 
-  sendCredentials(userName: string, password: string): void{
-    console.log(userName, password);
-  }
-  // register(credenciales:any):Observable<any>{
-  //   return this.http.post(this.URL, credenciales);
-  // }
-
-  token(){
-    console.log("Archivo Autenticacion Service, token(): ", sessionStorage.getItem('token') );
-    return  sessionStorage.getItem('token');
-  }
-
-  setToken(token:string): void {
-    sessionStorage.setItem('token', token);
-  }
-
-  removeToken(): void {
-    sessionStorage.removeItem('token');
-    console.log("Token removed", sessionStorage.getItem('token'));
-  }
 }

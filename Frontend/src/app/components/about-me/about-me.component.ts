@@ -8,7 +8,7 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./about-me.component.css']
 })
 export class AboutMeComponent implements OnInit {
-  user: user = new user("","","");
+  user: user = new user("","","","");
   constructor(public userService: UserService) { }
 
   ngOnInit(): void {

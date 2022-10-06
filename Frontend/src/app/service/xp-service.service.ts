@@ -7,24 +7,24 @@ import { Experience } from '../model/experience';
   providedIn: 'root',
 })
 export class XpServiceService {
-  xpURL = 'http://localhost:8080/workXp/';
+  URL = 'http://localhost:8080/api/v1';
 
   constructor(private httpClient: HttpClient) {}
 
   public listar(): Observable<Experience[]> {
-    return this.httpClient.get<Experience[]>(this.xpURL + 'list');
+    return this.httpClient.get<Experience[]>(this.URL + '/workXp/list');
   }
   public detail(id: number): Observable<Experience>{
-    return this.httpClient.get<Experience>(this.xpURL + `detail/{id}`);
+    return this.httpClient.get<Experience>(this.URL + `/workXp/detail/{id}`);
   }
 
   public save(experience: Experience): Observable<any>{
-    return this.httpClient.post<any>(this.xpURL + `create` , experience);
+    return this.httpClient.post<any>(this.URL + `/workXp/create` , experience);
   }
   public update(id: number, experience: Experience): Observable<any>{
-    return this.httpClient.put<any>(this.xpURL + `update/${id}`, experience);
+    return this.httpClient.put<any>(this.URL + `/workXp/update/${id}`, experience);
   }
   public delete(id: number): Observable<any>{
-    return this.httpClient.delete<any>(this.xpURL + `delete/${id}`);
+    return this.httpClient.delete<any>(this.URL + `/workXp/delete/${id}`);
   }
 }

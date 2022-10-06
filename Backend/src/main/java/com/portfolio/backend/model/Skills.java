@@ -13,14 +13,16 @@ import lombok.Setter;
 public class Skills implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String name;
+    private String image;
 
     public Skills() {
     }
 
-    public Skills(String name) {
+    public Skills(String name, String image) {
         this.name = name;
+        this.image = image;
     }
 
     

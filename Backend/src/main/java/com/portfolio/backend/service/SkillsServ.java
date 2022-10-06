@@ -14,11 +14,11 @@ public class SkillsServ {
     @Autowired
     SkillsRepo skillsRepo;
     
-    public List<Skills> list(){
+    public List<Skills> listSkill(){
         return skillsRepo.findAll();
     }
     
-    public Optional<Skills> getOne(int id){
+    public Optional<Skills> getOne(Long id){
         return skillsRepo.findById(id);
     }
     
@@ -30,11 +30,11 @@ public class SkillsServ {
         skillsRepo.save(skill);
     }
     
-    public void delete(int id){
+    public void delete(Long id){
         skillsRepo.deleteById(id);
     }
     
-    public boolean existsById(int id){
+    public boolean existsById(Long id){
         return skillsRepo.existsById(id);
     }
     

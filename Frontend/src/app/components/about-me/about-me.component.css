@@ -22,3 +22,9 @@ img{
     font-size: 20px;
 
 }
+
+#resume{
+    white-space: pre;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+}

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginUser } from 'src/app/model/login-user';
 import { AuthService } from 'src/app/service/auth.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-login',
@@ -9,55 +10,45 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup = new FormGroup({});
   
-  constructor(private asAuthService: AuthService){
+  isLogged = false;
+  isLogginFail = false;
+  loginUser!: LoginUser;
+  userName: string;
+  password : string;
+  roles: string[] = [];
+  errMsj!: string;
+  
 
-  }
-  // constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router){
-  //   this.form = this.formBuilder.group({
-  //     userName: ['', [Validators.required, Validators.minLength(6)]],
-  //     password: ['', [Validators.required, Validators.minLength(8)]]
-  
-  //   })
-  // }
+  constructor(private tokenService: TokenService, private authService: AuthService, private router: Router) { }
+
   ngOnInit(): void {
-    this.form = new FormGroup(
-      {
-      userName: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(12)])
-      }
-    )
-    
-  }
-
-  get userName(){
-    return this.form.get('userName');
-  }
-
-  get password(){
-    return this.form.get('password');
-  }
-
-  // onLogin(event: Event): void{
-  //   event.preventDefault;
-  //   this.authService.login(this.form.value).subscribe(
-  //     data => { 
-  //       console.log(data.token);
-  //       sessionStorage.setItem('token', data.token);
-  //       this.authService.setToken(data.token);
-  //       this.router.navigate(['home']);
-  //     }, err =>{
+    if(this.tokenService.getToken()){
+      this.isLogged = true;
+      this.isLogginFail = false;
+      this.roles = this.tokenService.getAuthorities();
+    }
         
-  //       console.log('Error al iniciar');
-  //     })
-    
-  // }
+  }
 
-  sendLogin(): void {
-    const {userName, password} = this.form.value;
-    this.asAuthService.sendCredentials(userName, password)
-    console.log('Me vuelvo chango')
+  onLogin(): void{
+    this.loginUser = new LoginUser(this.userName, this.password);
+    this.authService.login(this.loginUser).subscribe(
+      data => { 
+        this.isLogged = true;
+        this.isLogginFail = false;
+        this.tokenService.setToken(data.token);
+        this.tokenService.setUsername(data.userName);
+        this.tokenService.setAuthorities(data.authorities);
+        this.roles = data.authorities;
+        this.router.navigate([''])
+      }, err =>{
+        this.isLogged = false;
+        this.isLogginFail = true;
+        this.errMsj = err.error.mensaje;
+        console.log('Error');
+      })
+    
   }
 
 }

@@ -17,7 +17,7 @@ public class XpService {
     public List<WorkXp> list(){
         return xpRepository.findAll();
     }
-    public Optional<WorkXp> getOne(int id){
+    public Optional<WorkXp> getOne(Long id){
         return xpRepository.findById(id);
     }
     public Optional<WorkXp> getByNameXp(String nameXp){
@@ -26,10 +26,10 @@ public class XpService {
     public void saveXp(WorkXp workXp){
         xpRepository.save(workXp);
     }
-    public void deleteXp(int id){
+    public void deleteXp(Long id){
         xpRepository.deleteById(id);
     }
-    public boolean existsById(int id){
+    public boolean existsById(Long id){
         return xpRepository.existsById(id);
     }
     public boolean existsByNameXp(String nameXp){

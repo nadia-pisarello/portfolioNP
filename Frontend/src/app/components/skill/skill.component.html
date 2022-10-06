@@ -1,0 +1,36 @@
+<div class="row">
+    <td *ngIf="isLogged">
+        
+        <button type="button" (click)="onCreate()" class="btn btn-dark">Add Skill</button>
+        <button class="btn btn-light" (click)="onUpdate()">
+            <i class="bi bi-pencil-fill"></i></button>
+        <button class="btn btn-danger" (click)="delete(skill.id)"> <i class="bi bi-trash-fill"></i></button>
+
+    </td>
+
+</div>
+<div *ngIf="isLogged">
+    <div ngIf="_isCreate===true">
+        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <div class="form-group">
+                <label for="name">Skill</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required>
+            </div>
+
+            <button class="btn btn-primary"> Add skill </button>
+        </form>
+    </div>
+</div>
+<div *ngIf="isLogged">
+    <div *ngIf="_isEdit===true">
+        <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+            <div class="form-group">
+                <label for="name">Skill</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="skill.name" required>
+            </div>
+            <button class="btn btn-primary">
+                Update
+            </button>
+        </form>
+    </div>
+</div>

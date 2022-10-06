@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SkillsComponent } from './components/skills/skills.component';
 import { EducationComponent } from './components/education/education.component';
 import { WorkXpComponent } from './components/work-xp/work-xp.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
@@ -18,12 +17,12 @@ import { EditXpComponent } from './components/work-xp/edit-xp.component';
 import { NewEducationComponent } from './components/education/newEducation.component';
 import { EditEducationComponent } from './components/education/edit-education.component';
 import { interceptorProvider } from './service/interceptor-provider.service';
+import { SkillComponent } from './components/skill/skill.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SkillsComponent,
     EducationComponent,
     WorkXpComponent,
     AboutMeComponent,
@@ -34,7 +33,8 @@ import { interceptorProvider } from './service/interceptor-provider.service';
     NewExperienceComponent,
     EditXpComponent,
     NewEducationComponent,
-    EditEducationComponent
+    EditEducationComponent,
+    SkillComponent
   ],
   imports: [
     BrowserModule,

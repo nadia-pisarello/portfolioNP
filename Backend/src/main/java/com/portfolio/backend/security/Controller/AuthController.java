@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1")
 @CrossOrigin
 public class AuthController {
     @Autowired PasswordEncoder passwordEncoder;
@@ -42,7 +42,7 @@ public class AuthController {
     @Autowired
     Provider jwtProvider;
 
-    @PostMapping("/newUser")
+    @PostMapping("/auth/newUser")
     public ResponseEntity<?> newUSer(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new MessageCustom("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
@@ -65,7 +65,7 @@ public class AuthController {
         return new ResponseEntity(new MessageCustom("User guardado"), HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUser, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new MessageCustom("campos mal puestos"), HttpStatus.BAD_REQUEST);
