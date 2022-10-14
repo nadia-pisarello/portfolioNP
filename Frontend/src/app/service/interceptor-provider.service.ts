@@ -1,27 +1,35 @@
-import { HttpEvent, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, Observable, throwError } from 'rxjs';
 import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InterceptorProviderService {
+export class InterceptorProviderService implements HttpInterceptor{
 
-  constructor(private tokenService: TokenService) { }
+  constructor(private tokenService: TokenService, private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    let intReq = req;
+    
+    //Obtenemos el token
     const token = this.tokenService.getToken();
-    if(token != null){
-      intReq = req.clone({
+    let request = req;
+    //Se agrega content type
+    request = req.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    if(token){
+      request = req.clone({
         headers: req.headers.set('Authorization', 'Bearer' + token)
       });
     }
-    return next.handle(intReq);
+    //Se envía petición y con pipe catcError verificamos si request tira error para redirigirlo en caso de token doesn't exists o vencido
+    return next.handle(request).pipe(
+      catchError((err:HttpErrorResponse) => {
+        if(err.status === 401){
+          this.router.navigateByUrl('/err401');
+        }
+        return throwError(err);
+      })
+    );
   }
 }
-
-export const interceptorProvider = [{
-  provide: HTTP_INTERCEPTORS,
-  useClass: InterceptorProviderService,
-  multi: true }];

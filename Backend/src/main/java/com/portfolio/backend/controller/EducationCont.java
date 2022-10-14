@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = "http://localhost:4200") //@CrossOrigin(origins = "*") or 
+@CrossOrigin(origins = "*") 
 public class EducationCont {
     @Autowired
     EducationServ educationServ;
@@ -30,17 +30,8 @@ public class EducationCont {
     public ResponseEntity<Education> getById(@PathVariable("id") Long id){
         if(!educationServ.existsById(id))
             return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
-        Education education = educationServ.getEducationById(id);
+        Education education = educationServ.getOne(id);
         return new ResponseEntity(education, HttpStatus.OK);
-    }
-    
-    @DeleteMapping("/education/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id){
-        if(!educationServ.existsById(id)){
-            return new ResponseEntity(new MessageCustom("It does not exists"), HttpStatus.NOT_FOUND);
-        }
-        educationServ.delete(id);
-        return new ResponseEntity(new MessageCustom("Education eliminated"), HttpStatus.OK);
     }
 
     @PostMapping("/education")
@@ -53,23 +44,32 @@ public class EducationCont {
         return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
     }
         
-    @PutMapping("/education/update/{id}")
+    @PutMapping("/education/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody EducationDto educationDto) {
         if(!educationServ.existsEducation(id))
             return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
+        
+        if(educationServ.existsByTitle(educationDto.getTitle()) && educationServ.getByTitle(educationDto.getTitle()).get().getId().equals(id))
+            return new ResponseEntity(new MessageCustom("Already exists"), HttpStatus.BAD_REQUEST);
+        
         if(StringUtils.isBlank(educationDto.getTitle()))
             return new ResponseEntity(new MessageCustom("This field is required"),HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(educationDto.getInstitution()))
-                return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(educationDto.getDescriptionE()))
-            return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
-        Education education = educationServ.getEducationById(id);
+             
+        Education education = educationServ.getOne(id);
         education.setTitle(educationDto.getTitle());
         education.setInstitution(educationDto.getInstitution());
         education.setDescriptionE(educationDto.getDescriptionE());
         educationServ.save(education);     
         return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);        
+    
+    }  
+    
+    @DeleteMapping("/education/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
+        if(!educationServ.existsById(id)){
+            return new ResponseEntity(new MessageCustom("It does not exists"), HttpStatus.NOT_FOUND);
+        }
+        educationServ.delete(id);
+        return new ResponseEntity(new MessageCustom("Education eliminated"), HttpStatus.OK);
     }
-    
-    
 }

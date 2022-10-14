@@ -14,14 +14,14 @@ public class Skills implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String tech;
     private String image;
 
     public Skills() {
     }
 
-    public Skills(String name, String image) {
-        this.name = name;
+    public Skills(String tech, String image) {
+        this.tech = tech;
         this.image = image;
     }
 

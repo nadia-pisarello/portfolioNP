@@ -1,16 +1,44 @@
-<div class="row">
-    <div class="contenedor">
-        <div class="col-sm-12 col-md-7 col-lg-7 parte1">
-            <h3>Informatorio</h3>
-            <p>Descripción/detalles</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-               Quibusdam, quis modi vel labore laboriosam nesciunt culpa
-               libero et unde, quos quasi autem fuga reprehenderit?
-               Earum vero sapiente distinctio impedit nesciunt.
-            </p>
-        </div>
-        <div class="col-sm-12 col-md-3 offset-md-1 col-lg-3 offset-lg-1 parte2">
-            <img class="img-fluid img-proyecto" src="../../../assets/banner01.jpeg" alt="">
-        </div>
+<div class="container shadow bg-gradient">
+    <div class="row mt-3">
+        <h4 class="text-start p-1 bg-dark text-light  rounded border p-2">Proyectos</h4>
     </div>
+    <div class="row">
+        <div class="ng-for-block" *ngFor="let Proyect of portfolio">
+            <div class="mb-md-2 mt-md-1 pb-1"><h5> {{ Proyect.title }} </h5></div>
+            <div class="mb-md-2 mt-md-1 pb-1"> {{ Proyect.description }} </div><br>
+            <div class="mb-md-3 mt-md-2 pb-1"> {{ Proyect.image }} </div>
+
+            <div *ngIf="_isLogged">
+                <button class="btn btn-light" routerLink="/editPoryect/{{Proyect.id}}">
+                    <i class="bi bi-pencil-fill"></i> Edit</button>
+
+                <button class="btn btn-danger" (click)="delete(Proyect.id)">
+                    <i class="bi bi-trash-fill"></i> Delete</button>
+            </div>
+        </div>
+        <div class="row" *ngIf="_isLogged">
+            <div>
+                <form (ngSubmit)="onCreate($event)" novalidate #f="ngForm">
+                    <div class="form-group">
+                        <label for="title">Nombre del Proyecto</label>
+                        <input type="text" class="form-control" id="title" name="titlee" [(ngModel)]="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <input type="text" class="form-control" id="description" name="description" [(ngModel)]="description"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Imagen</label>
+                        <input type="text" class="form-control" id="image" name="image" [(ngModel)]="image" required>
+                    </div>
+                    <button class="btn btn-primary mt-3">
+                        Add Experience
+                    </button>
+                </form>
+            </div>
+        </div>
+        😏💥🚀
+    </div>
+
 </div>

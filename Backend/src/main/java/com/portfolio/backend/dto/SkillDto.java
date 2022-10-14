@@ -8,14 +8,14 @@ import lombok.Setter;
 public class SkillDto {
     
     @NotBlank
-    private String name;
+    private String tech;
     private String image;
 
     public SkillDto() {
     }
 
-    public SkillDto(String name, String image) {
-        this.name = name;
+    public SkillDto(String tech, String image) {
+        this.tech = tech;
         this.image = image;
     }
     

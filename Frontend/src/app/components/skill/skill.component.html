@@ -1,36 +1,38 @@
-<div class="row">
-    <td *ngIf="isLogged">
-        
-        <button type="button" (click)="onCreate()" class="btn btn-dark">Add Skill</button>
-        <button class="btn btn-light" (click)="onUpdate()">
-            <i class="bi bi-pencil-fill"></i></button>
-        <button class="btn btn-danger" (click)="delete(skill.id)"> <i class="bi bi-trash-fill"></i></button>
-
-    </td>
-
-</div>
-<div *ngIf="isLogged">
-    <div ngIf="_isCreate===true">
-        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
-            <div class="form-group">
-                <label for="name">Skill</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" required>
-            </div>
-
-            <button class="btn btn-primary"> Add skill </button>
-        </form>
+<div class="container shadow bg-gradient">
+    <div class="row mt-3">
+        <h4 class="text-start p-1 bg-dark text-light  rounded border p-2">Hard & Soft Skills</h4>
     </div>
-</div>
-<div *ngIf="isLogged">
-    <div *ngIf="_isEdit===true">
-        <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
-            <div class="form-group">
-                <label for="name">Skill</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="skill.name" required>
+    <div class="row">
+        <div class="ng-for-block" *ngFor="let Skill of portfolio">
+            <div class="mb-md-2 mt-md-1 pb-1"><h5> {{ Skill.tech }} </h5></div>
+            <div class="mb-md-3 mt-md-2 pb-1"> {{ Skill.image }}</div>
+
+            <div *ngIf="_isLogged">
+                <button class="btn btn-light" routerLink="/editSkill/{{Skill.id}}">
+                    <i class="bi bi-pencil-fill"></i> Edit</button>
+
+                <button class="btn btn-danger" (click)="delete(Skill.id)">
+                    <i class="bi bi-trash-fill"></i> Delete</button>
             </div>
-            <button class="btn btn-primary">
-                Update
-            </button>
-        </form>
+        </div>
+        <div class="row" *ngIf="_isLogged">
+            <div>
+                <form (ngSubmit)="onCreate($event)" novalidate #f="ngForm">
+                    <div class="form-group">
+                        <label for="tech">Tecnología/Habilidad</label>
+                        <input type="text" class="form-control" id="tech" name="tech" [(ngModel)]="tech" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Imagen</label>
+                        <input type="text" class="form-control" id="image" name="image" [(ngModel)]="image" required>
+                    </div>
+                    <button class="btn btn-primary mt-3">
+                        Add Skill
+                    </button>
+                </form>
+            </div>
+        </div>
+        😏💥🚀
     </div>
+
 </div>

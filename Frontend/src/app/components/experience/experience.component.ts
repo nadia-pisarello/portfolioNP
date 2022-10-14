@@ -1,39 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Education } from 'src/app/model/education';
+import { ActivatedRoute } from '@angular/router';
+import { Experience } from 'src/app/model/experience';
 import { PortfolioService } from 'src/app/service/portfolio.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
-  selector: 'app-education',
-  templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css']
+  selector: 'app-experience',
+  templateUrl: './experience.component.html',
+  styleUrls: ['./experience.component.css']
 })
-export class EducationComponent implements OnInit {
+export class ExperienceComponent implements OnInit {
 
-  portfolio: Education[] = [];
+  portfolio: Experience[] = [];
   _isLogged: boolean = false;
   _isEdit: boolean = false;
-  education: Education;
-  title: string;
-  institution: string;
-  descriptionE: string;
+  experience: Experience;
+  xpName: string;
+  descripXp: string;
 
-
-
-  constructor(public educationPort: PortfolioService, private token: TokenService) {
+  constructor(public experiencePort: PortfolioService, private token: TokenService) {
 
   }
 
   ngOnInit(): void {
-    this.loadEducation()
+    this.loadExperience();
     if (this.token.getToken()) {
       this._isLogged = true;
     } else this._isLogged = false;
   }
 
-  loadEducation() {
-    this.educationPort.getEducationData().subscribe(data => {
+  loadExperience() {
+    this.experiencePort.getExperienceData().subscribe(data => {
       this.portfolio = data;
       console.log(this.portfolio);
     })
@@ -41,9 +38,9 @@ export class EducationComponent implements OnInit {
 
   delete(id?: number) {
     if (id != undefined) {
-      this.educationPort.deleteEducation(id).subscribe(
+      this.experiencePort.deleteExperience(id).subscribe(
         data => {
-          this.loadEducation();
+          this.loadExperience();
         }, err => {
           alert("Failed operation");
         }
@@ -52,8 +49,8 @@ export class EducationComponent implements OnInit {
   }
 
   onCreate(event: Event): void {
-    const NewEducation = new Education(this.title, this.institution, this.descriptionE);
-    this.educationPort.postEducation(NewEducation).subscribe(
+    const NewExperience = new Experience(this.xpName, this.descripXp);
+    this.experiencePort.postExperience(NewExperience).subscribe(
       data => {
         alert("Successful operation");
         window.location.reload();

@@ -1,8 +1,10 @@
 export class Skill{
     id?: number;
-    name: string;
-
-    constructor(name: string){
-        this.name= name;
+    tech: string;
+    image: string;
+    
+    constructor(tech: string, image: string){
+        this.tech= tech;
+        this.image= image;
     }
 }

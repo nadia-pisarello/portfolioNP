@@ -22,8 +22,8 @@ public class SkillsServ {
         return skillsRepo.findById(id);
     }
     
-    public Optional<Skills> getByName(String name){
-        return skillsRepo.findByName(name);
+    public Optional<Skills> getByName(String tech){
+        return skillsRepo.findByTech(tech);
     }
     
     public void save(Skills skill){
@@ -38,7 +38,7 @@ public class SkillsServ {
         return skillsRepo.existsById(id);
     }
     
-    public boolean existsByName(String name){
-        return skillsRepo.existsByName(name);
+    public boolean existsByName(String tech){
+        return skillsRepo.existsByTech(tech);
     }
 }

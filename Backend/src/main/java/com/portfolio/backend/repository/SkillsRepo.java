@@ -5,6 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SkillsRepo extends JpaRepository<Skills, Long>{
-    Optional<Skills> findByName(String name);
-    public boolean existsByName(String name);
+    Optional<Skills> findByTech(String tech);
+    public boolean existsByTech(String tech);
 }

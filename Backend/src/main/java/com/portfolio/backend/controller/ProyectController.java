@@ -1,9 +1,9 @@
 package com.portfolio.backend.controller;
 
+import com.portfolio.backend.dto.ProyectDto;
 import com.portfolio.backend.model.MessageCustom;
-import com.portfolio.backend.dto.SkillDto;
-import com.portfolio.backend.model.Skills;
-import com.portfolio.backend.service.SkillsServ;
+import com.portfolio.backend.model.Proyect;
+import com.portfolio.backend.service.ProyectService;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,67 +22,62 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "*")
-public class SkillControl {
+public class ProyectController {
 
     @Autowired
-    SkillsServ skillServ;
+    ProyectService proyectService;
 
-    @GetMapping("/skill/list")
-    public ResponseEntity<List<Skills>> listSkill() {
-        List<Skills> list = skillServ.listSkill();
+    @GetMapping("/proyect/list")
+    public ResponseEntity<List<Proyect>> list() {
+        List<Proyect> list = proyectService.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
 
-    @PostMapping("/skill")
-    public ResponseEntity<?> create(@RequestBody SkillDto skillDto) {
-        if (StringUtils.isBlank(skillDto.getTech())) {
-            return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
+    @PostMapping("/proyect")
+    public ResponseEntity<?> create(@RequestBody ProyectDto proyectDto) {
+        Proyect proyect = new Proyect(proyectDto.getTitle(), proyectDto.getDescription(), proyectDto.getImage());
+        proyectService.save(proyect);
+        return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
+    }
+
+    @GetMapping("/proyect/{id}")
+    public ResponseEntity<Proyect> getById(@PathVariable("id") Long id) {
+        if (!proyectService.existsById(id)) {
+            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
+        }
+        Proyect proyect = proyectService.getOne(id);
+        return new ResponseEntity(proyect, HttpStatus.OK);
+    }
+
+    @PutMapping("/proyect/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody ProyectDto proyectDto) {
+        if (!proyectService.existsById(id)) {
+            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
         }
         //expendable
-        if (skillServ.existsByName(skillDto.getTech())) {
+        if (proyectService.existsByTitle(proyectDto.getTitle()) && proyectService.getByTitle(proyectDto.getTitle()).get().getId().equals(id)) {
             return new ResponseEntity(new MessageCustom("Already exists"), HttpStatus.BAD_REQUEST);
         }
-        Skills skills = new Skills(skillDto.getTech(), skillDto.getImage());
-        skillServ.save(skills);
-        return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
-    }
 
-    @GetMapping("/skill/{id}")
-    public ResponseEntity<Skills> getById(@PathVariable("id") Long id) {
-        if (!skillServ.existsById(id)) {
-            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
-        }
-        Skills skills = skillServ.getOne(id).get();
-        return new ResponseEntity(skills, HttpStatus.OK);
-    }
-
-    @PutMapping("/skill/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody SkillDto skillDto) {
-        if (!skillServ.existsById(id)) {
-            return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
-        }
-        if (skillServ.existsByName(skillDto.getTech()) && skillServ.getByName(skillDto.getTech()).get().getId().equals(id)) {
-            return new ResponseEntity(new MessageCustom("Already exists"), HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(skillDto.getTech())) {
+        if (StringUtils.isBlank(proyectDto.getTitle())) {
             return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
         }
-        Skills skills = skillServ.getOne(id).get();
-        skills.setTech(skillDto.getTech());
-        skills.setImage(skillDto.getImage());
-        skillServ.save(skills);
+        Proyect proyect = proyectService.getOne(id);
+        proyect.setTitle(proyectDto.getTitle());
+        proyect.setDescription(proyectDto.getDescription());
+        proyect.setImage(proyectDto.getImage()); 
+        proyectService.save(proyect);
 
         return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
 
     }
-
-    @DeleteMapping("/skill/{id}")
+    
+     @DeleteMapping("/proyect/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        if (!skillServ.existsById(id)) {
+        if (!proyectService.existsById(id)) {
             return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        skillServ.delete(id);
+        proyectService.delete(id);
         return new ResponseEntity(new MessageCustom("Successful operation"), HttpStatus.OK);
     }
-
 }

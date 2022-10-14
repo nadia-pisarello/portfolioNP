@@ -2,48 +2,51 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
-import { EducationComponent } from './components/education/education.component';
-import { WorkXpComponent } from './components/work-xp/work-xp.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ProyectComponent } from './components/proyect/proyect.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { InterceptorProviderService } from './service/interceptor-provider.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewExperienceComponent } from './components/work-xp/new-experience.component';
-import { EditXpComponent } from './components/work-xp/edit-xp.component';
-import { NewEducationComponent } from './components/education/newEducation.component';
-import { EditEducationComponent } from './components/education/edit-education.component';
-import { interceptorProvider } from './service/interceptor-provider.service';
+import { ExperienceComponent } from './components/experience/experience.component';
+import { EducationComponent } from './components/education/education.component';
 import { SkillComponent } from './components/skill/skill.component';
+import { EditExperienceComponent } from './components/experience/edit-experience.component';
+import { EditEducationComponent } from './components/education/edit-education.component';
+import { EditSkillComponent } from './components/skill/edit-skill.component';
+import { EditProyectComponent } from './components/proyect/edit-proyect.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    EducationComponent,
-    WorkXpComponent,
     AboutMeComponent,
     ProyectComponent,
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    NewExperienceComponent,
-    EditXpComponent,
-    NewEducationComponent,
+    ExperienceComponent,
+    EducationComponent,
+    SkillComponent,
+    EditExperienceComponent,
     EditEducationComponent,
-    SkillComponent
+    EditSkillComponent,
+    EditProyectComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
+    FormsModule, 
     HttpClientModule,
+    AppRoutingModule,       
     ReactiveFormsModule
   ],
-  providers: [interceptorProvider],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorProviderService,
+    multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

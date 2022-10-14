@@ -3,6 +3,7 @@ package com.portfolio.backend.service;
 import com.portfolio.backend.model.Education;
 import com.portfolio.backend.repository.EducationRepo;
 import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,20 +18,29 @@ public class EducationServ {
         return educationR.findAll();
     }
     
+    public Education getOne(Long id){
+        return educationR.findById(id).orElse(null);
+    }
+    
+     public Optional<Education> getByTitle(String title){
+        return educationR.findByTitle(title);
+    }
+    
     public void save(Education education){
         educationR.save(education);
     }
         
     public void delete(Long id){
         educationR.deleteById(id);
-    } 
-    
-    public Education getEducationById(Long id){
-        return educationR.findById(id).orElse(null);
-    }
+    }   
     
     public boolean existsById(Long id){
-        return educationR.existsById(id);
+        try{
+            educationR.findById(id);
+            return true;
+        } catch(Exception e){
+        return false;
+        }
     }
     
     public boolean existsEducation(Long id){
@@ -40,6 +50,10 @@ public class EducationServ {
         } catch (Exception e){
             return false;
         }
+    }
+    
+    public boolean existsByTitle(String title){
+        return educationR.existsByTitle(title);
     }
     
     public void editEducation (Long id, Education education){

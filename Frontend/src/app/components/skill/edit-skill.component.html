@@ -1,0 +1,35 @@
+<section class="vh-100 gradient-custom" *ngIf="skill">
+  <div class="container py-4 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-3 mt-md-3 pb-4">
+
+              <h2 class="fw-bold mb-2 text-uppercase">Edit Skill</h2>
+
+              <form #f="ngForm" (ngSubmit)="onUpdate()" novalidate>
+                <div class="form-outline form-white mb-2">
+                  <input type="text" id="tech" name="tech" class="form-control form-control-lg" [(ngModel)]="skill.tech"
+                    required= />
+                  <label class="form-label" for="tech">Hard & Soft Skill</label>
+                </div>
+
+                <div class="form-outline form-white mb-5">
+                  <form method="post" enctype="multipart/form-data">
+                    <input type="file" id="imageFile" accept="image/*" name="image" class="form-control form-control-lg"
+                      [(ngModel)]="skill.image" requiered />
+                    <label class="form-label" for="imageFile">Imagen</label>
+                  </form>
+                </div>
+
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
