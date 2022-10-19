@@ -38,7 +38,6 @@ public class SkillControl {
         if (StringUtils.isBlank(skillDto.getTech())) {
             return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
         }
-        //expendable
         if (skillServ.existsByName(skillDto.getTech())) {
             return new ResponseEntity(new MessageCustom("Already exists"), HttpStatus.BAD_REQUEST);
         }

@@ -21,16 +21,16 @@
                 <form (ngSubmit)="onCreate($event)" novalidate #f="ngForm">
                     <div class="form-group">
                         <label for="title"> Título </label>
-                        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="title" required>
+                        <input type="text" class="form-control" name="title" [(ngModel)]="title" required>
                     </div>
                     <div class="form-group">
                         <label for="institution">Institución</label>
-                        <input type="text" class="form-control" id="institution" name="institution" [(ngModel)]="institution"
+                        <input type="text" class="form-control" name="institution" [(ngModel)]="institution"
                             required>
                     </div>
                     <div class="form-group">
                         <label for="descriptionE">Descripción</label>
-                        <input type="text" class="form-control" id="descriptionE" name="descriptionE" [(ngModel)]="descriptionE"
+                        <input type="text" class="form-control" name="descriptionE" [(ngModel)]="descriptionE"
                             required>
                     </div>
                     <button class="btn btn-primary mt-3">

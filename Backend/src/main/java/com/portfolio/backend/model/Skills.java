@@ -15,12 +15,12 @@ public class Skills implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String tech;
-    private String image;
+    private byte[] image;
 
     public Skills() {
     }
 
-    public Skills(String tech, String image) {
+    public Skills(String tech, byte[] image) {
         this.tech = tech;
         this.image = image;
     }
