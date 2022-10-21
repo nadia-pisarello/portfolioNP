@@ -10,10 +10,10 @@ public class ProfileDto implements Serializable {
     private String name;
     @NotBlank
     private String lastname;
-    
     private String position;
     private String description;
-
+    private String image;
+    //constructor
     public ProfileDto() {
     }
 
@@ -21,19 +21,13 @@ public class ProfileDto implements Serializable {
         this.name = name;
         this.lastname = lastname;
     }
-    
-    
-    public ProfileDto(String name, String lastname, String position) {
-        this.name = name;
-        this.lastname = lastname;
-        this.position = position;
-    }
 
-    public ProfileDto(String name, String lastname, String position, String description) {
+    public ProfileDto(String name, String lastname, String position, String description, String image) {
         this.name = name;
         this.lastname = lastname;
         this.position = position;
         this.description = description;
+        this.image = image;
     }
     
 

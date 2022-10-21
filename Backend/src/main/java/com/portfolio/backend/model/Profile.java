@@ -17,6 +17,7 @@ public class Profile implements Serializable {
     private String lastname;
     private String position; 
     private String description;
+    private String image;
 
     public Profile() {
     }
@@ -32,11 +33,12 @@ public class Profile implements Serializable {
         this.position = position;
     }
     
-    public Profile(String name, String lastname, String position, String description) {
+    public Profile(String name, String lastname, String position, String description, String image) {
         this.name = name;
         this.lastname = lastname;
         this.position = position;
         this.description = description;
+        this.image = image;
     }
 
     public Long getId() {
@@ -78,6 +80,16 @@ public class Profile implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    
     
     @Override
     public String toString(){

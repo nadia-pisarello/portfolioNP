@@ -32,11 +32,11 @@ public class ProfileController {
     public List<Profile> getProfile(){
         return profileServ.getProfile();
     }
+    
     @PostMapping("/profile/create")
     public String createUser(@RequestBody Profile profile){
         profileServ.createProfile(profile);
-        return "Successful operation";
-        
+        return "Successful operation";  
     }
     
     @DeleteMapping("/profile/delete/{id}")
@@ -52,11 +52,13 @@ public class ProfileController {
         if(StringUtils.isBlank(profileDto.getLastname())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(profileDto.getPosition())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(profileDto.getDescription())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(profileDto.getImage())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
         Profile profile = profileServ.findProfile(id);
         profile.setName(profileDto.getName());
         profile.setLastname(profileDto.getLastname());
         profile.setPosition(profileDto.getPosition());
         profile.setDescription(profileDto.getDescription());
+         profile.setImage(profileDto.getImage());
         profileServ.createProfile(profile);
         return new ResponseEntity(new MessageCustom("Successfull operation"), HttpStatus.OK);
     }   

@@ -9,12 +9,12 @@ public class SkillDto {
     
     @NotBlank
     private String tech;
-    private byte[] image;
+    private String image;
 
     public SkillDto() {
     }
 
-    public SkillDto(String tech, byte[] image) {
+    public SkillDto(String tech, String image) {
         this.tech = tech;
         this.image = image;
     }

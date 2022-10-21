@@ -17,15 +17,17 @@
         </div>
         <div class="row" *ngIf="_isLogged">
             <div>
-                <form (ngSubmit)="onCreate($event)" novalidate #f="ngForm">
+                
+                <form (ngSubmit)="onCreate($event)" novalidate #f="ngForm" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="tech">Tecnología/Habilidad</label>
-                        <input type="text" class="form-control" id="tech" name="tech" [(ngModel)]="tech" required>
+                        <input type="text" class="form-control" id="tech" name="tech" [(ngModel)]="tech" required
+                        placeholder="Ingresar tecnología o habilidad">
                     </div>
                     <div class="form-group">
                         <label for="image">Imagen</label>
                         <input type="file"  (change)="selectFile($event)" class="form-control" 
-                        [(ngModel)]="image" required>
+                        [(ngModel)]="image" [ngModelOptions]="{standalone: true}" required>
                         <button (click)="uploadFile($event)">Subir Archivo</button>
                     </div>
                     <button class="btn btn-primary mt-3">
