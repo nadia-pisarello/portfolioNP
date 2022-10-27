@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Skill } from 'src/app/model/skill';
 import { PortfolioService } from 'src/app/service/portfolio.service';
+import { UploadService } from 'src/app/service/upload.service';
 
 @Component({
   selector: 'app-edit-skill',
@@ -13,6 +14,7 @@ export class EditSkillComponent implements OnInit {
   skill: Skill = null;
   
   constructor(private skillService: PortfolioService, private activated: ActivatedRoute,
+     public uploadService: UploadService,
      private router: Router) { }
 
   ngOnInit(): void {
@@ -33,16 +35,13 @@ export class EditSkillComponent implements OnInit {
     )
   }
 
-  selectFile(event: Event){
-    let file = (<HTMLInputElement>event.target).files[0];
-    if(file.type == "image/jpg" || file.type == "image/jpge"){
-      this.skill = new Skill(file.name, file.type);
-    }
+  selectFile($event: any){
+    const id = this.activated.snapshot.params['id'];
+    const name = 'skill_'+ id ;
+    this.uploadService.uploadFile($event,name);
   }
 
-  uploadFile(event: Event) {
-    this.skillService.postSkill(this.skill).subscribe(Response=> {});
-  }
+  
 
 
 

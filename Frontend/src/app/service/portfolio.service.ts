@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { Education } from '../model/education';
 import { Experience } from '../model/experience';
+import { Profile } from '../model/profile';
 import { Proyect } from '../model/proyect';
 import { Skill } from '../model/skill';
 
@@ -23,6 +24,10 @@ export class PortfolioService {
   
     
     // ******************   |  GET ALL    | **************************
+
+    getProfileData():Observable<Profile[]>{
+      return this.http.get<Profile[]>(`${this.URL}/profile/getAll`, {responseType: 'json'}).pipe(catchError(this.getProfileData));
+    }
    
     getExperienceData():Observable<Experience[]> {
       return this.http.get<Experience[]>(`${this.URL}/experience/list`, {responseType: 'json'}).pipe(catchError(this.getExperienceData));
@@ -41,6 +46,10 @@ export class PortfolioService {
     }
 
     // **************   |   METHOD'S GET ONE    | **************************
+
+    getOneProfile(id: number):Observable<Profile> {
+      return this.http.get<Profile>( this.URL + "/profile/" + id);
+    }
   
     getOneExperience(id: number):Observable<Experience> {
       return this.http.get<Experience>( this.URL + "/experience/" + id);
@@ -59,6 +68,10 @@ export class PortfolioService {
     }
   
     // **************   |   METHOD'S POST    | ******************************
+
+    postProfile( Profile: Profile):Observable<Profile> {
+      return this.http.post<Profile>( this.URL + "/profile/create", Profile , { headers: this.headers} );
+    }
  
     postExperience( Experience: Experience ):Observable<Experience> {
       return this.http.post<Experience>( this.URL + "/experience", Experience , { headers: this.headers} );
@@ -76,6 +89,10 @@ export class PortfolioService {
       return this.http.post<Proyect>( this.URL + '/proyect', Proyect , { headers: this.headers} );
     }
     // **************   |   METHOD'S PUT    | ******************************
+
+    putProfile( id: Number, Profile: Profile ):Observable<Profile> {
+      return this.http.put<Profile>( this.URL + "/profile/update/" + id, Profile, { headers: this.headers} );
+    }
   
     putExperience( id: Number, Experience: Experience ):Observable<Experience> {
       return this.http.put<Experience>( this.URL + "/experience/" + id, Experience , { headers: this.headers} );
@@ -95,6 +112,10 @@ export class PortfolioService {
   
     
     // **************   |   METHOD'S DELETE    | ***************************
+
+    deleteProfile(id: Number): Observable<Profile> {
+      return this.http.delete<Profile>( this.URL + '/profile/delte/' + id, {headers: this.headers});
+    }
   
     deleteExperience( id: Number ):Observable<Experience> {
       return this.http.delete<Experience>( this.URL + '/experience/' + id ,  { headers: this.headers} );

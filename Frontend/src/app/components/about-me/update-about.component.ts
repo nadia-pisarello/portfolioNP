@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { user } from 'src/app/model/user.model';
-import { UserService } from 'src/app/service/user.service';
+import { Profile } from 'src/app/model/profile';
+import { PortfolioService } from 'src/app/service/portfolio.service';
+import { UploadService } from 'src/app/service/upload.service';
 
 @Component({
   selector: 'app-update-about',
@@ -10,31 +10,36 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./update-about.component.css']
 })
 export class UpdateAboutComponent implements OnInit {
-  user: user = null;
-  constructor(private userService: UserService, private activated: ActivatedRoute,
-    private router: Router) { }
+  profile: Profile = null;
+  constructor(private profileService: PortfolioService, private activated: ActivatedRoute,
+    private router: Router, public uploadService: UploadService) { }
 
   ngOnInit(): void {
     const id = this.activated.snapshot.params['id'];
-    this.userService.getUser().subscribe(
+    this.profileService.getOneProfile(id).subscribe(
       data => {
-        this.user = data;
+        this.profile = data;
       }
     )
   }
 
   onUpdate() {
     const id = this.activated.snapshot.params['id'];
-    this.userService.putUser(id, this.user).subscribe(
+    this.profileService.putProfile(id, this.profile).subscribe(
       data => {
         this.router.navigate(['']);
-      }, next =>{
-        this.router.navigate(['']);
-      }
+      } 
     )
   }
 
-  uploadFile($event: any){
-
+  selectFile($event: any){
+    const id = this.activated.snapshot.params['id'];
+    const name = 'profile_'+ id ;
+    this.uploadService.uploadFile($event,name);
   }
+
+  // onUpload(){
+    
+  // }
 }
+

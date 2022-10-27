@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Skill } from 'src/app/model/skill';
 import { PortfolioService } from 'src/app/service/portfolio.service';
 import { TokenService } from 'src/app/service/token.service';
+import { UploadService } from 'src/app/service/upload.service';
 
 @Component({
   selector: 'app-skill',
@@ -18,7 +20,8 @@ export class SkillComponent implements OnInit {
   tech: string;
   image: string;
 
-  constructor(private skillService: PortfolioService, private token: TokenService) { }
+  constructor(private skillService: PortfolioService, private token: TokenService,
+    private activated: ActivatedRoute, public uploadService: UploadService) { }
 
   ngOnInit(): void {
     this.loadSkill();
@@ -56,14 +59,11 @@ export class SkillComponent implements OnInit {
     )
   }
 
-  selectFile(event: Event){
-    let file = (<HTMLInputElement>event.target).files[0];
-    if(file.type == "image/jpg" || file.type == "image/jpge"){
-      this.skill = new Skill(file.name, file.type);
-    }
+  selectFile($event: any){
+    let id = 1;
+    const name = 'skill_'+ id ;
+    this.uploadService.uploadFile($event,name);
+    id++;
   }
 
-  uploadFile(event: Event) {
-    this.skillService.postSkill(this.skill).subscribe(Response=> {});
-  }
 }

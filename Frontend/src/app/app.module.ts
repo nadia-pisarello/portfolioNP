@@ -19,6 +19,9 @@ import { EditEducationComponent } from './components/education/edit-education.co
 import { EditSkillComponent } from './components/skill/edit-skill.component';
 import { EditProyectComponent } from './components/proyect/edit-proyect.component';
 import { UpdateAboutComponent } from './components/about-me/update-about.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,7 @@ import { UpdateAboutComponent } from './components/about-me/update-about.compone
     FormsModule, 
     HttpClientModule,
     AppRoutingModule,       
-    ReactiveFormsModule
+    ReactiveFormsModule, provideFirebaseApp(() => initializeApp(environment.firebase)), provideStorage(() => getStorage())
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

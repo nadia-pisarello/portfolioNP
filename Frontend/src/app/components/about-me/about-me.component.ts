@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { user } from 'src/app/model/user.model';
+import { Profile } from 'src/app/model/profile';
+import { PortfolioService } from 'src/app/service/portfolio.service';
 import { TokenService } from 'src/app/service/token.service';
-import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-about-me',
@@ -10,8 +10,8 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class AboutMeComponent implements OnInit {
   _isLogged: boolean = false;
-  user: user = new user("","","","","");
-  constructor(public userService: UserService, private token: TokenService) { }
+  profile: Profile = new Profile("","","","","");
+  constructor(public profileServ: PortfolioService, private token: TokenService) { }
 
   ngOnInit(): void {
     this.loadUser()
@@ -21,7 +21,7 @@ export class AboutMeComponent implements OnInit {
   }
 
   loadUser(){
-    this.userService.getUser().subscribe(data => {this.user = data})
+    this.profileServ.getOneProfile(1).subscribe(data => {this.profile = data})
   }
 
 }

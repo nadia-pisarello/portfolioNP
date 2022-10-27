@@ -14,8 +14,12 @@ public class ProfileService {
     @Autowired
     ProfileRepository profileRepo;
 
-    public List<Profile> getProfile() {
+    public List<Profile> getProfileAll() {
         return profileRepo.findAll();
+    }
+    
+        public Profile getOne(Long id){
+        return profileRepo.findById(id).orElse(null);
     }
 
     public void createProfile(Profile profile) {
@@ -26,8 +30,8 @@ public class ProfileService {
         profileRepo.deleteById(id);
     }
 
-    public Profile findProfile(Long id) {
-        return profileRepo.findById(id).orElse(null);
+    public boolean existesById(Long id) {
+        return profileRepo.existsById(id);
     }
     
     public Boolean existsProfile(Long id){
@@ -36,17 +40,5 @@ public class ProfileService {
         } catch(Exception e){return false;}
                     
     }  
-    
-    /*public void editProfile(Long id) {
-
-        profileRepo.findById(id).map(
-                editProfile -> {
-                    editProfile.setName(profileRepo.getReferenceById(id).getName());
-                    editProfile.setLastname(profileRepo.getReferenceById(id).getLastname());
-                    editProfile.setPosition(profileRepo.getReferenceById(id).getPosition());
-                    editProfile.setDescription(profileRepo.getReferenceById(id).getDescription());
-                    editProfile.setImage(profileRepo.getReferenceById(id).getImage());
-                    return profileRepo.save(editProfile);
-                });    }*/  
 
 }

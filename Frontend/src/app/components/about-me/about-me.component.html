@@ -1,27 +1,29 @@
 <div class="container-fluid">
     <div *ngIf="_isLogged">
-        <button class="btn btn-light" routerLink="/editAbout/id">
+        <button id="pencil" class="btn btn-light" routerLink="/editAbout/{{profile.id}}">
             <i class="bi bi-pencil-fill"></i></button>
     </div>
+    <br>
     <div class="row justify-content-start">
-        
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
-            <img src= {{user.image}}  class="img-fluid" alt="foto de perfil">
+            <img src= "../../../assets/perfil02.jpg"
+            
+           class="img-fluid" alt="foto de perfil">
+           <!-- <img src= {{profile.image}} class="img-fluid" alt="foto de perfil"> -->
         </div>
         
         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
-            <p id="name"> {{user.name}} {{user.lastname}}</p>
-            <p id="puesto">{{ user.position }}</p>
+            <p id="name"> {{profile.name}} {{profile.lastname}}</p>
+            <p id="puesto">{{ profile.position }}</p>
         </div>
         
         <div class="col-xs-12 col-sm-4 col-md-5 col-lg-8">
             <span>
                 <h2>Acerca de mí</h2>
-                <p id="resume"> {{ user.description }}</p>
+                <p id="resume"> {{ profile.description }}</p>
             </span>
         </div>
         
     </div>
 </div>
-
 

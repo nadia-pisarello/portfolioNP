@@ -60,9 +60,7 @@ public class SkillControl {
         if (!skillServ.existsById(id)) {
             return new ResponseEntity(new MessageCustom("Doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        if (skillServ.existsByName(skillDto.getTech()) && skillServ.getByName(skillDto.getTech()).get().getId().equals(id)) {
-            return new ResponseEntity(new MessageCustom("Already exists"), HttpStatus.BAD_REQUEST);
-        }
+        
         if (StringUtils.isBlank(skillDto.getTech())) {
             return new ResponseEntity(new MessageCustom("This field is required"), HttpStatus.BAD_REQUEST);
         }

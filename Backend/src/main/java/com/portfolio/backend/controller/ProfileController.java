@@ -29,8 +29,8 @@ public class ProfileController {
     @Autowired ProfileService profileServ;
     
     @GetMapping("/profile/getAll")
-    public List<Profile> getProfile(){
-        return profileServ.getProfile();
+    public List<Profile> getProfileAll(){
+        return profileServ.getProfileAll();
     }
     
     @PostMapping("/profile/create")
@@ -47,25 +47,42 @@ public class ProfileController {
         
     @PutMapping("/profile/update/{id}")
     public ResponseEntity<?> editProfile(@PathVariable Long id, @RequestBody ProfileDto profileDto){
-        if(!profileServ.existsProfile(id)) return new ResponseEntity(new MessageCustom("It doesn't exists"), HttpStatus.NOT_FOUND);
-        if(StringUtils.isBlank(profileDto.getName())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(profileDto.getLastname())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(profileDto.getPosition())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(profileDto.getDescription())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(profileDto.getImage())) return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
-        Profile profile = profileServ.findProfile(id);
+        if(!profileServ.existsProfile(id))
+            return new ResponseEntity(new MessageCustom("It doesn't exists"), HttpStatus.NOT_FOUND);
+        if(StringUtils.isBlank(profileDto.getName()))
+            return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(profileDto.getLastname()))
+            return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(profileDto.getPosition()))
+            return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(profileDto.getDescription()))
+            return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(profileDto.getImage()))
+            return new ResponseEntity(new MessageCustom("Field required"),HttpStatus.BAD_REQUEST);
+        Profile profile = profileServ.getOne(id);
         profile.setName(profileDto.getName());
         profile.setLastname(profileDto.getLastname());
         profile.setPosition(profileDto.getPosition());
         profile.setDescription(profileDto.getDescription());
-         profile.setImage(profileDto.getImage());
+        profile.setImage(profileDto.getImage());
         profileServ.createProfile(profile);
         return new ResponseEntity(new MessageCustom("Successfull operation"), HttpStatus.OK);
     }   
        
-    
-    @GetMapping("/profile/getProfile")
-    public Profile findProfile(){
-        return profileServ.findProfile((long)1);
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<Profile> getById(@PathVariable("id")Long id){
+        if(!profileServ.existsProfile(id)){
+            return new ResponseEntity(new MessageCustom("No existe el ID"), HttpStatus.BAD_REQUEST);
+        }
+        
+        Profile profile = profileServ.getOne(id);
+        return new ResponseEntity(profile, HttpStatus.OK);
     }
+    
+    
+    
+   // @GetMapping("/profile/getProfile/{id}")
+   // public Profile findProfile(Long id){
+    //    return profileServ.findProfile((long)1);
+    //}
 }

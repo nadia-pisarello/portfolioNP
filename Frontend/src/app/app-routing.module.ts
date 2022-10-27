@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { UpdateAboutComponent } from './components/about-me/update-about.component';
 import { EditEducationComponent } from './components/education/edit-education.component';
 import { EditExperienceComponent } from './components/experience/edit-experience.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { EditProyectComponent } from './components/proyect/edit-proyect.component';
 import { EditSkillComponent } from './components/skill/edit-skill.component';
+import { UpdateAboutComponent } from './components/about-me/update-about.component';
 
 
 const routes: Routes = [
@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'editEducation/:id', component: EditEducationComponent},
   {path: 'editSkill/:id', component: EditSkillComponent},
   {path: 'editProyect/:id', component: EditProyectComponent},
-  {path: 'editAbout/:id' , component: UpdateAboutComponent}
+  {path: 'editAbout/:id' , component: UpdateAboutComponent},
 ];
 
 @NgModule({
